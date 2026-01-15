@@ -1,0 +1,34 @@
+{% extends 'layout.html' %}
+{% block content %}
+  <h2>Admin — CSV Import / Export</h2>
+
+  <section class="card">
+    <h3>Import Books CSV</h3>
+    <p>CSV header should be: title,author,isbn,publisher,year,copies_total</p>
+    <form method="post" action="{{ url_for('admin_import_books') }}" enctype="multipart/form-data">
+      <input type="file" name="file" accept=".csv" required>
+      <div class="form-actions"><button class="btn primary">Upload and Import</button></div>
+    </form>
+  </section>
+
+  <section class="card">
+    <h3>Export Books</h3>
+    <p>Download current books as CSV.</p>
+    <a class="btn" href="{{ url_for('admin_export_books') }}">Download Books CSV</a>
+  </section>
+
+  <section class="card">
+    <h3>Import Borrowers CSV</h3>
+    <p>CSV header should be: name,email,phone,member_id</p>
+    <form method="post" action="{{ url_for('admin_import_borrowers') }}" enctype="multipart/form-data">
+      <input type="file" name="file" accept=".csv" required>
+      <div class="form-actions"><button class="btn primary">Upload and Import</button></div>
+    </form>
+  </section>
+
+  <section class="card">
+    <h3>Export Borrowers</h3>
+    <a class="btn" href="{{ url_for('admin_export_borrowers') }}">Download Borrowers CSV</a>
+  </section>
+
+{% endblock %}

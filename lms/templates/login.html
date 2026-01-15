@@ -1,0 +1,12 @@
+{% extends 'layout.html' %}
+{% block content %}
+  <h2>Login</h2>
+  <form method="post" class="form-grid">
+    <label>Username<input name="username" required></label>
+    <label>Password<input name="password" type="password" required></label>
+    <div class="form-actions">
+      <button class="btn primary">Login</button>
+      <a class="btn" href="{{ url_for('register') }}">Register</a>
+    </div>
+  </form>
+{% endblock %}
