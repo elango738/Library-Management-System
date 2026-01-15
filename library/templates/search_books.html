@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Search Books - Library Management System{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <h2 class="text-center">Search Books</h2>
+        <form method="POST" class="mb-4">
+            {{ form.hidden_tag() }}
+            <div class="input-group">
+                {{ form.query(class="form-control") }}
+                {{ form.submit(class="btn btn-primary") }}
+            </div>
+        </form>
+        {% if results %}
+            <h3>Search Results</h3>
+            <div class="row">
+                {% for book in results %}
+                    <div class="col-md-4 mb-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ book.title }}</h5>
+                                <p class="card-text">Author: {{ book.author }}</p>
+                                <p class="card-text">Category: {{ book.category.name }}</p>
+                                <p class="card-text">Available: {{ book.available }}/{{ book.quantity }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}User Dashboard - Library Management System{% endblock %}
+
+{% block content %}
+<h2>User Dashboard</h2>
+<div class="row">
+    <div class="col-md-6">
+        <h3>Issued Books</h3>
+        {% if issues %}
+            <ul class="list-group">
+                {% for issue in issues %}
+                    <li class="list-group-item">
+                        <strong>{{ issue.book.title }}</strong> by {{ issue.book.author }}<br>
+                        Issued: {{ issue.issue_date.strftime('%Y-%m-%d') }}<br>
+                        Due: {{ issue.due_date.strftime('%Y-%m-%d') }}
+                        {% if issue in overdue %}
+                            <span class="badge bg-warning">Overdue</span>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No books issued.</p>
+        {% endif %}
+    </div>
+    <div class="col-md-6">
+        <h3>Actions</h3>
+        <a href="{{ url_for('issue_book') }}" class="btn btn-primary mb-2">Issue a Book</a>
+        <a href="{{ url_for('return_book') }}" class="btn btn-secondary mb-2">Return a Book</a>
+        <a href="{{ url_for('search_books') }}" class="btn btn-info">Search Books</a>
+    </div>
+</div>
+{% endblock %}
