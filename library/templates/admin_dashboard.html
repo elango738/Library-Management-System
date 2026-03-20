@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Dashboard - Library Management System{% endblock %}
+
+{% block content %}
+<h2>Admin Dashboard</h2>
+<div class="row">
+    <div class="col-md-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <h5 class="card-title">Total Books</h5>
+                <p class="card-text">{{ total_books }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <h5 class="card-title">Total Users</h5>
+                <p class="card-text">{{ total_users }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <h5 class="card-title">Issued Books</h5>
+                <p class="card-text">{{ total_issues }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <h5 class="card-title">Overdue Books</h5>
+                <p class="card-text">{{ overdue_issues|length }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="mt-4">
+    <h3>Books Management</h3>
+    <a href="{{ url_for('add_book') }}" class="btn btn-success mb-3">Add New Book</a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Category</th>
+                <th>Available</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for book in books %}
+                <tr>
+                    <td>{{ book.title }}</td>
+                    <td>{{ book.author }}</td>
+                    <td>{{ book.category.name }}</td>
+                    <td>{{ book.available }}/{{ book.quantity }}</td>
+                    <td>
+                        <a href="{{ url_for('edit_book', book_id=book.id) }}" class="btn btn-sm btn-warning">Edit</a>
+                        <a href="{{ url_for('delete_book', book_id=book.id) }}" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
